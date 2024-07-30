@@ -1,29 +1,49 @@
 class Solution {
     public int[] countBits(int n) {
-        // Problem (good)
-        // Examples
-        // Data Structures: Array of Length n + 1
-        int[] ans = new int[n+1];
+        // P: generate an array of length n+1
+        // where array[i] == number of 1's in binary of i
+        // E: n = 2 -> [0, 1, 1]
+        // - i = 0 -> 0 in binary
+        // - i = 1 -> 1 in binary
+        // - i = 2 -> 10 in binary
+        // D: just an array should be okay
+        // A: we use dynamic programming
+        // - there's a pattern:
+        // base case:
+        // - result[0] = 0
+        // - result[1] = 1
+        // for n >= 2:
+        // if n is even: result[x] = result[x/2]
+        // if n is odd: result[x] = result[x/2]+1
+        // C:    
 
-        // Algorithms
-        // 1. for loop to iterate from 0 to n, inclusive
-        // 2. count number of one's', using shift operator
-        // 3. loop through bits of the number, by right shifting
-        // and & with 1, to see if result is 1, if it is
-        // increment a count by 1
+        int[] result = new int[n+1];
 
-        for(int i = 0; i <= n; i++){
-            int current = i;
-            int count = 0;
-            while(current != 0){
-                // if current & 1 equals 1, means right most bit
-                if((current & 1) == 1){
-                    count++;
-                }
-                current = current >> 1;
-            }
-            ans[i] = count;
+        if(result.length == 1){
+            result[0] = 0;
+            return result;
         }
-        return ans;
+
+        // base cases:
+        result[0] = 0;
+        result[1] = 1;
+
+        // now for i >= 2
+        for(int i = 2; i < result.length; i++){
+            
+            // when i is even:
+            if(i % 2 == 0){
+                result[i] = result[i/2];
+            }
+            // odd case:
+            else {
+                result[i] = result[i/2]+1;
+            }
+
+        }
+
+        return result;
+
     }
+
 }
