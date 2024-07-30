@@ -19,6 +19,7 @@ class Solution {
 
         int[] result = new int[n+1];
 
+        // handle the edge case
         if(result.length == 1){
             result[0] = 0;
             return result;
