@@ -24,7 +24,7 @@ class Solution {
             with the same value exists in the tree of root
             - then, once we find it, check if the same subroot in
             the root tree and the tree defined by subroot are the same
-            trees (note there are multiple candidates so add each to a list)
+            trees (note there are multiple candidates)
             - if none are subtrees, then we know its not a subroot
             - do this by recursion:
             - first check base case, if rootSubRoot == null and subroot == null
@@ -42,11 +42,10 @@ class Solution {
         Stack<TreeNode> rootStack = new Stack<>();
         rootStack.add(root);
 
-        ArrayList<TreeNode> possibleSubtrees = new ArrayList<>();
         while(!rootStack.isEmpty()) {
             TreeNode current = rootStack.pop();
             if(current.val == subRoot.val){
-                possibleSubtrees.add(current);
+                if(isSameTree(current, subRoot)) return true;
             } 
 
             if(current.left != null){
@@ -58,9 +57,6 @@ class Solution {
             
         }
 
-        for(TreeNode candidate: possibleSubtrees){
-            if(isSameTree(candidate, subRoot)) return true;
-        }
         // if none-found return false
         return false;
     }
