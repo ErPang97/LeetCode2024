@@ -7,26 +7,18 @@ class Solution {
             /**
             - general idea, use the beginning and end indices
             to help narrow down which row, the target should be 
-            found in
+            found in (a binary search of the row index)
             - then, once thats known, do a binary search on 
             the specified row
             - pseucode:
                 - use minRow and maxRow, which will be firstRow initially, 
                 and maxRow 
                 - get midPoint row = (lastRow + firstRow)/2
-                - if( maxRow lastInt > target > maxRow firstInt) 
-                    - we know val must be in last row,
-                    search this row
-                - if( minRow lastInt > target > minRow firstInt)
-                    - val is in min row, 
-                    so search this row
-                - if(target > midRow firstInt && target > midRow lastInt
-                target < maxRow firstInt) 
-                    - update minRow to be midRow
-                - if(target > minRow firstInt && target < midRow firstInt)
-                    - update maxRow to be midRow
-                - if(target < midRow || target > maxRow)
-                    - target must not be in matrix 
+                - if(midPoint[0] < target < midPoint[width-1]) its in this row
+                - else if(target > midRow[0] && target > midRow[width-1]) 
+                    - update minRow to be midRow + 1
+                - else if(target < midRow[0] && target < midRow[width-1])
+                    - update maxRow to be midRow - 1
              */
         // C: 
 
