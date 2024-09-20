@@ -25,6 +25,7 @@ class Solution {
             which is 1 <= k <= maxValue
             - [1, ..., maxValue]
             - k = midpoint
+            - validate k by calculating Math.ceil(sum(piles[i]/k))
             - if k is valid at midpoint, we can check the leftSpace 
             by setting right = k, and if not, set left = k + 1
             - return the k that is valid
