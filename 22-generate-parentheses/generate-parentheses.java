@@ -12,14 +12,15 @@ class Solution {
          *   - build recursively until number of closed
          *   and open = 3
          *       - if numClosed and numOpen == n
-         *            - build solution and return it
+         *            - build solution and add to returnList
          *       - if numOpen < 3
          *            - add "(" to stack
-         *            - backtrack and recursve with numOpen + 1
+         *            - backtrack/ recurse with numOpen + 1
          *            - pop stack 
          *       - if numClosed < numOpen:
          *            - add ")"
          *            - backtrack/recurse with numClosed + 1
+         *            - pop stack
          */
         // C:
 
