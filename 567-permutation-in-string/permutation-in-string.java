@@ -24,16 +24,19 @@ class Solution {
          * init s2SubCounts;
          * s2Counts.put(s2[left], 1)
          * while(left < right)
-         *    if(right - left == s1.length()) 
+         *    if(right - left + 1 == s1.length()) 
          *       check the counts in s1 and s2 and if theyre the same:
          *           return true
          *       s2Counts[s2[left]]--
          *       left++
          *    (build-up right substring counts, as long as 
          *    length less than s1.length())
-         *    else if(right - left < s1.length)
+         *    else if(right - left + 1 < s1.length)
          *        s2Counts[s2[right]]++
          *        right++
+         *    else 
+         *        s2Counts[s2[left]]--
+         *        left++
          */
         // C:
 
