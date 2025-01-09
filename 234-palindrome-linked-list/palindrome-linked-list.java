@@ -31,17 +31,48 @@ class Solution {
          */
         // C:
 
+        int length = 0;
         ListNode current = head;
-        Stack<Integer> stack = new Stack<>();
         while(current != null){ // add elements to stack
-            stack.push(current.val);
+            length++;
             current = current.next;
         }
 
         current = head;
-        while(current != null){
-            if(stack.pop() != current.val) return false;
+        ListNode prev = null;
+        for(int i = 0; i < length/2; i++){
+
+            ListNode next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+
+        }
+
+        ListNode revHead = prev;
+        ListNode currentCopy;
+        if(length % 2 != 0){
+            currentCopy = new ListNode(current.val, revHead);
+            revHead = currentCopy;
+        }
+
+        ListNode currentRev = revHead;
+        
+        if(length % 2 == 0)
+            for(int i = 0; i < length/2 ; i++){
+                System.out.println("Rev: " + currentRev.val + " Forward: " + current.val);
+                if(currentRev.val != current.val) return false;
+                currentRev = currentRev.next;
+                current = current.next;
+            }
+
+        else {
+            for(int i = 0; i < length/2 + 1 ; i++){
+            System.out.println("Rev: " + currentRev.val + " Forward: " + current.val);
+            if(currentRev.val != current.val) return false;
+            currentRev = currentRev.next;
             current = current.next;
+        }
         }
 
         return true;
