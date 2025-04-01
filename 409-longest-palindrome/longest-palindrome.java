@@ -15,11 +15,12 @@ class Solution {
         A: 
         - use a hash map to count the occurrences of all the letters
         - for i in occurrences:
-            if max_len = 0:
-                max_len += 1
+            if i is even:
+                max_len += i
             else:
-                max_len += i / 2 // simply just
-        - return max_len
+                max_len += i-1 , add i - 1, if odd, then one won't be matched
+        - return max_len, or max_len+1 if max_len is odd, as it ensures that we do have
+        at least one more of the number that made this odd, to add back as the center
          */
         // C:
 
@@ -40,17 +41,21 @@ class Solution {
 
         occurrences.sort(Comparator.naturalOrder());
 
-        if (occurrences.size() == 1) {
-            return occurrences.get(0);
-        } 
-
-        for (int c : occurrences) {
-            if (maxLength %2 == 0) {
-                maxLength += c;
+        boolean hasOddFrequency = false;
+        for (int freq : occurrences) {
+            // Check is the frequency is even
+            if ((freq % 2) == 0) {
+                maxLength += freq;
             } else {
-                maxLength += (c/2) * 2;
+                // If the frequency is odd, one occurrence of the
+                // character will remain without a match
+                maxLength += freq - 1;
+                hasOddFrequency = true;
             }
         }
+        // If hasOddFrequency is true, we have at least one unmatched
+        // character to make the center of an odd length palindrome.
+        if (hasOddFrequency) return maxLength + 1;
 
         return maxLength;
     }
