@@ -23,33 +23,53 @@ class Solution {
 
         - how to improve? 
         - we can cache results, and use recursion
+
+        - or even better, use a bottom up DP approach
+
     C:
      */
+    
     public int findTargetSumWays(int[] nums, int target) {
-        Map<String, Integer> dp = new HashMap<>();
-        return backtrack(nums, target, 0, 0, dp);
+        int n = nums.length;
+        Map<Integer, Integer>[] dp = new HashMap[n + 1];
+        for (int i = 0; i <= n; i++) {
+            dp[i] = new HashMap<>();
+        }
+        dp[0].put(0, 1);
+
+        for (int i = 0; i < n; i++) {
+            for (Map.Entry<Integer, Integer> entry : dp[i].entrySet()) {
+                int total = entry.getKey();
+                int count = entry.getValue();
+                dp[i + 1].put(total + nums[i],
+                          dp[i + 1].getOrDefault(total + nums[i], 0) + count);
+                dp[i + 1].put(total - nums[i],
+                          dp[i + 1].getOrDefault(total - nums[i], 0) + count);
+            }
+        }
+        return dp[n].getOrDefault(target, 0);
     }
 
-    public int backtrack(int[] nums, int target, int index, int currentSum, Map<String, Integer> dp) {
-        // int[] currentKey = new int[]{index, currentSum};
-        String currentKey = index+"+"+currentSum;
-        // we use caching to avoid recomputing sums already seen
-        if (dp.containsKey(currentKey)){
-            return dp.get(currentKey);
-        }
+    // public int backtrack(int[] nums, int target, int index, int currentSum, Map<String, Integer> dp) {
+    //     // int[] currentKey = new int[]{index, currentSum};
+    //     String currentKey = index+"+"+currentSum;
+    //     // we use caching to avoid recomputing sums already seen
+    //     if (dp.containsKey(currentKey)){
+    //         return dp.get(currentKey);
+    //     }
 
-        // at end of array, we check if the current sum is the target and simply return 1 if so
-        if (index == nums.length) {
-            if(currentSum == target) return 1;
-            else return 0;
-        }
+    //     // at end of array, we check if the current sum is the target and simply return 1 if so
+    //     if (index == nums.length) {
+    //         if(currentSum == target) return 1;
+    //         else return 0;
+    //     }
 
-        dp.put(
-            currentKey,
-            backtrack(nums, target, index+1, currentSum + nums[index], dp)
-            + backtrack(nums, target, index+1, currentSum - nums[index], dp)
-        );
+    //     dp.put(
+    //         currentKey,
+    //         backtrack(nums, target, index+1, currentSum + nums[index], dp)
+    //         + backtrack(nums, target, index+1, currentSum - nums[index], dp)
+    //     );
 
-        return dp.get(currentKey);
-    }
+    //     return dp.get(currentKey);
+    // }
 }
