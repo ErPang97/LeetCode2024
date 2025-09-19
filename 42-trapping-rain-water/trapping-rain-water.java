@@ -11,7 +11,7 @@ class Solution {
     E:
     - the examples are clear
     D:
-    
+    - could use O(3*n) space to explicitly keep track of troughs
     A:
     - using two pointers, we can try and find some sort of open and close section
     - to clarify, our left pointer would represent the left edge of a block that would
