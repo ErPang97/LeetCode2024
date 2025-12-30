@@ -53,7 +53,9 @@ class Solution {
         return dfs(s, t, 0, 0, cache);
     }
 
-    public int dfs(String s, String t, int i, int j, Map<List<Integer>, Integer> cache) { 
+    public int dfs(String s, String t, int i, int j, Map<List<Integer>, Integer> cache) {       
+        // check if there are enough characters left in s to
+        // create t
         if (s.length() - i < t.length() - j) {
             return 0;
         }
