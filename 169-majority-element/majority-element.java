@@ -21,25 +21,41 @@ class Solution {
     C:
      */
     public int majorityElement(int[] nums) {
-        // Brute Force Algo:
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) {
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
-            }
-        }
+        // // Brute Force Algo:
+        // Map<Integer, Integer> map = new HashMap<>();
+        // for (int num : nums) {
+        //     if (map.containsKey(num)) {
+        //         map.put(num, map.get(num) + 1);
+        //     } else {
+        //         map.put(num, 1);
+        //     }
+        // }
 
-        int max = Integer.MIN_VALUE;
-        int maxCount = 0;
-        for (int key : map.keySet()) {
-            int currentCount = map.get(key);
-            if (currentCount > maxCount) {
-                maxCount = currentCount;
-                max = key;
+        // int max = Integer.MIN_VALUE;
+        // int maxCount = 0;
+        // for (int key : map.keySet()) {
+        //     int currentCount = map.get(key);
+        //     if (currentCount > maxCount) {
+        //         maxCount = currentCount;
+        //         max = key;
+        //     }
+        // }
+        // return max;
+
+        // Boyer-Moore Algorithm
+        int candidate = Integer.MAX_VALUE;
+        int count = 1;
+        for (int num : nums) {
+            if (num != candidate) {
+                count--;
+                if (count == 0) {
+                    candidate = num;
+                    count = 1;
+                }
+            } else {
+                count++;
             }
         }
-        return max;
+        return candidate;
     }
 }
