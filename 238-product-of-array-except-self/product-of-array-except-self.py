@@ -27,7 +27,7 @@ class Solution:
             after = [24, 12, 4, 1]
             - where we use 1 if its the first number
     A:
-    - the brute force method would be O(n^2)
+    - APPROACH 1: the brute force method would be O(n^2)
         - init result list
         - for i in range(len(nums)):
             val = nums[i]
@@ -40,7 +40,7 @@ class Solution:
     - how can we linearize this? 
     - again, another option was to calculate a total,
     and divide, but the division operator is not allowed...
-    - can we use two extra lists? A before list and an after list:
+    - APPROACH 2: can we use two extra lists? A before list and an after list:
         - init result
         - init before
         - for i in range(len(nums)):
@@ -57,24 +57,44 @@ class Solution:
         - flip after
         - for i in range(len(nums)):
             result.append(before[i] * after[i])
-
+    - APPROACH 2 works! (However, it is O(n) space complexity as we're creating
+    two arrays of equal length to the input)
+    - regarding the follow up now...
+        - to reduce too much extra space,
+        we can actually utilize the results array immediately
+        - first, calculate the before product as done prior
     C:
     """
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         result = []
-        before = [] # stores the product of the values before index, (except if first value where it is 1)
+        # before = [] # stores the product of the values before index, (except if first value where it is 1)
+        # for i in range(len(nums)):
+        #     if i == 0:
+        #         before.append(1)
+        #     else:
+        #         before.append(before[len(before) - 1] * nums[i - 1])
+        # after = [] # stores the product of the values after index (except last value, where it is 1 (a placeholder))
+        # for i in range(len(nums)-1, -1, -1):
+        #     if i == len(nums) - 1:
+        #         after.append(1)
+        #     else:
+        #         after.append(after[len(after) - 1] * nums[i + 1])
+        # after.reverse() # reverse the after list
+        # for i in range(len(nums)):
+        #     result.append(before[i] * after[i])
+
+        before = 1
         for i in range(len(nums)):
             if i == 0:
-                before.append(1)
+                result.append(before)
             else:
-                before.append(before[len(before) - 1] * nums[i - 1])
-        after = [] # stores the product of the values after index (except last value, where it is 1 (a placeholder))
+                before *= nums[i - 1]
+                result.append(before)
+        after = 1
         for i in range(len(nums)-1, -1, -1):
-            if i == len(nums) - 1:
-                after.append(1)
+            if i == len(nums)-1:
+                result[i] *= after
             else:
-                after.append(after[len(after) - 1] * nums[i + 1])
-        after.reverse() # reverse the after list
-        for i in range(len(nums)):
-            result.append(before[i] * after[i])
+                after *= nums[i + 1]
+                result[i] *= after
         return result
