@@ -78,8 +78,6 @@ class Solution:
             if nums[left] < nums[right]:
                  # strict increasing, so update min val if less than current observed
                  min_val = min(min_val, nums[left])
-                 break
-
             min_val = min(min_val, nums[mid])
             if nums[mid] >= nums[left]:
                 # implies still strictly increasing in this window, and because we don't know if left is min,
