@@ -57,7 +57,6 @@ class Solution:
         
         while left <= right:
             mid = (left + right)//2 # compute midpoint
-            mid = (left + right)//2 # compute midpoint
             if nums[mid] == target:
                 return mid
             if nums[left] == target:
@@ -82,5 +81,4 @@ class Solution:
                 else: # target > nums[right] or target <= nums[mid]
                     # search the left half
                     right = mid - 1
-
         return -1 
