@@ -32,17 +32,40 @@ class KthLargest:
         - Simplest Idea:
             - after every call to add, sort the list
             and return the kth largest element
+
+        - PriorityQueue/Heap Idea:
+            - simply maintain instead of a sorted list, a priorityqueue
+            of size k, and simply return the top element
     C:
     """
 
     def __init__(self, k: int, nums: list[int]):
         self.k = k
-        self.nums = sorted(nums) # pre-sort the list        
+        # self.nums = sorted(nums) # pre-sort the list        
+        self.priority_queue = []
+        nums = sorted(nums)
+        for i in range(len(nums)):
+            heapq.heappush(self.priority_queue, nums[i])
+
+        while len(self.priority_queue) > self.k:
+            heapq.heappop(self.priority_queue)
 
     def add(self, val: int) -> int:
-        self.nums.append(val)
-        self.nums.sort()
-        return self.nums[len(self.nums) - self.k]
+        # Sorted List approach:
+        # self.nums.append(val)
+        # self.nums.sort()
+        # return self.nums[len(self.nums) - self.k]
+
+
+        # Priority Queue Approach:
+        heapq.heappush(self.priority_queue, val)
+
+        # in the event adding goes over size k
+        while len(self.priority_queue) > self.k:
+            heapq.heappop(self.priority_queue)
+
+        return self.priority_queue[0]
+
 
 
 # Your KthLargest object will be instantiated and called as such:
